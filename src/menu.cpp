@@ -1,7 +1,12 @@
 #include "menu.h"
+#include "csv_parser.h"
+#include "merge_sort.h"
+#include "heap_sort.h"
+#include "quick_sort.h"
+#include "compare.h"
 
-#include <csv_parser.h>
 #include <iostream>
+#include <chrono>
 #include <locale>
 #include <ostream>
 #include <string>
@@ -52,17 +57,28 @@ void runMenu(vector<Row> data) {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> metric;
     }
+
+    bool(*comp)(const Row&, const Row&);
+
     if (metric == "1") {
         cout << "Selected: Total minutes delayed\n---------------------------------------------\n";
+        comp = compareByTotalMinutes;
     }
     else if (metric == "2") {
         cout << "Selected: Delay rate\n---------------------------------------------\n";
+        comp = compareByDelayRate;
     }
     else if (metric == "3") {
         cout << "Selected: Average minutes per delayed\n---------------------------------------------\n";
+        comp = compareByAvgMinutesPerDelayedFlight;
     }
     else if (metric == "4") {
         cout << "Selected: Weather / Carrier / NAS / Security minutes\n---------------------------------------------\n";
+        /*TODO: either have another menu pop up when this option is selected
+                or increase the number of options, because there are 4 separate things
+                we can choose here. Change the comp variable below accordingly for the
+                option selected. */
+        comp = compareByWeatherMinutes;
     }
     cout << "Choose algorithm:\n[1] Merge sort\n[2] Heap sort\n[3] Compare both\n";
     cout << "> " << flush;
@@ -71,6 +87,7 @@ void runMenu(vector<Row> data) {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> algo;
     }
+    //TODO: Add the quick sort option and change last option to "Compare all"
     if (algo == "1") {
         cout << "Selected: Merge sort\n---------------------------------------------\n";
     }
