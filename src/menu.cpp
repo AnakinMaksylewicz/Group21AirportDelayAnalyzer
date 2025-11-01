@@ -1,3 +1,13 @@
+#include "menu.h"
+
+#include <csv_parser.h>
+#include <iostream>
+#include <locale>
+#include <ostream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 bool isInteger(const std::string& s) {
     if (s.empty()) return false;
@@ -83,5 +93,4 @@ void runMenu(vector<Row> data) {
     for (int i = 1; i <= k; i++) {
         // cout data[i]
     }
-    return 0;
 }
