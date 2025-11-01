@@ -13,4 +13,6 @@ add_executable(FlightDelayAnalyzer
         src/csv_parser.cpp
         src/data_generator.cpp
         include/compare.h
-        src/compare.cpp)
+        src/compare.cpp
+        include/quick_sort.h
+        src/quick_sort.cpp)
