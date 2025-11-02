@@ -117,8 +117,58 @@ void runMenu(vector<Row> data) {
     }
     int k = stoi(n);
     cout << "---------------------------------------------\n";
-    // Call Algorithm and Output
-    for (int i = 1; i <= k; i++) {
-        // cout data[i]
+    if (algo == "1"){
+        auto start = chrono::high_resolution_clock::now();
+        merge_sort(data, data.size()-1, comp);
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> duration = end - start;
     }
+    else if (algo == "2"){
+        auto start = chrono::high_resolution_clock::now();
+        // heap sort
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> duration = end - start;
+    }
+    else if (algo == "3"){
+        auto start = chrono::high_resolution_clock::now();
+        quickSort(data, comp);
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> duration = end - start;
+    }
+    else {
+        vector<Row> data1 = data;
+        vector<Row> data2 = data;
+        auto start = chrono::high_resolution_clock::now();
+        merge_sort(data, data.size()-1, comp);
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> duration = end - start;
+        start = chrono::high_resolution_clock::now();
+        // heap sort data 1
+        end = chrono::high_resolution_clock::now();
+        chrono::duration1<double, milli> duration = end - start;
+        start = chrono::high_resolution_clock::now();
+        quickSort(data2, comp);
+        end = chrono::high_resolution_clock::now();
+        chrono::duration2<double, milli> duration = end - start;
+        
+    }
+    // Output
+    if (algo == 4){
+        cout << "Times to execute:\n";
+        cout << "Merge sort: " << duration.count() << "ms\n";
+        cout << "Heap sort: " << duration1.count() << "ms\n";
+        cout << "Quick sort: " << duration2.count() << "ms\n";
+        cout << "---------------------------------------------\n";
+        for (int i=0; i<k; i++) {
+            cout << "[" << i << "] " << data[i] << "\n";
+        }
+    }
+    else {
+        cout << "Time to execute: " << duration.count() << "ms\n";
+        cout << "---------------------------------------------\n";
+        for (int i=0; i<k; i++) {
+            cout << "[" << i << "] " << data[i] << "\n";
+        }
+    }
+
 }
