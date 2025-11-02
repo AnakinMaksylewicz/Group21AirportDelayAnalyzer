@@ -73,17 +73,25 @@ void runMenu(vector<Row> data) {
         comp = compareByAvgMinutesPerDelayedFlight;
     }
     else if (metric == "4") {
-        cout << "Selected: Weather / Carrier / NAS / Security minutes\n---------------------------------------------\n";
-        /*TODO: either have another menu pop up when this option is selected
-                or increase the number of options, because there are 4 separate things
-                we can choose here. Change the comp variable below accordingly for the
-                option selected. */
-        comp = compareByWeatherMinutes;
+        cout << "Selected: Weather\n---------------------------------------------\n";
+        comp = compareByWeather;
     }
-    cout << "Choose algorithm:\n[1] Merge sort\n[2] Heap sort\n[3] Compare both\n";
+    else if (metric == "5") {
+        cout << "Selected: Carrier\n---------------------------------------------\n";
+        comp = compareByCarrier;
+    }
+    else if (metric == "6") {
+        cout << "Selected: NAS\n---------------------------------------------\n";
+        comp = compareByNAS;
+    }
+    else if (metric == "7") {
+        cout << "Selected: Security Minutes\n---------------------------------------------\n";
+        comp = compareBySecurityMinutes;
+    }
+    cout << "Choose algorithm:\n[1] Merge sort\n[2] Heap sort\n[3] Quick sort\n[4] Compare all\n";
     cout << "> " << flush;
     cin >> algo;
-    while (algo != "1" && algo != "2" && algo != "3") {
+    while (algo != "1" && algo != "2" && algo != "3" && algo != "4") {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> algo;
     }
@@ -95,7 +103,10 @@ void runMenu(vector<Row> data) {
         cout << "Selected: Heap sort\n---------------------------------------------\n";
     }
     else if (algo == "3") {
-        cout << "Selected: Compare both\n---------------------------------------------\n";
+        cout << "Selected: Quick sort\n---------------------------------------------\n";
+    }
+    else if (algo == "4") {
+        cout << "Selected: Compare all\n---------------------------------------------\n" 
     }
     cout << "Enter Top-N to display.\n";
     cout << "> " << flush;
