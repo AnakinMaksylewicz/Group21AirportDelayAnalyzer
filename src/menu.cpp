@@ -162,16 +162,54 @@ void runMenu(vector<Row> data) {
         cout << "Heap sort: " << duration1.count() << "ms\n";
         cout << "Quick sort: " << duration2.count() << "ms\n";
         cout << "---------------------------------------------\n";
-        for (int i=0; i<k; i++) {
-            cout << "[" << i << "] " << data[i] << "\n";
-        }
     }
     else {
         cout << "Time to execute: " << duration.count() << "ms\n";
         cout << "---------------------------------------------\n";
-        for (int i=0; i<k; i++) {
-            cout << "[" << i << "] " << data[i] << "\n";
+    }
+    if (metric == "1") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Total minutes delayed: " << data[i].minutesTotal << " minutes\n"; 
+            }
+        }
+    else if (metric == "2") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Delay rate: " << 100.0 * (double)data[i].flightsDelayed / (double)data[i].flightsTotal << "%\n"; 
+            }
+        }
+    else if (metric == "3") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Minutes per delay: " << (double)data[i].minutesTotal / (double)data[i].flightsDelayed << " minutes\n"; 
+            }
+        }
+    else if (metric == "4") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Weather minutes: " << data[i].minutesWeather << " minutes\n"; 
+            }
+        }
+    else if (metric == "5") {
+         for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Carrier minutes: " << data[i].minutesCarrier << " minutes\n"; 
+            }       
+        }
+    else if (metric == "6") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", NAS minutes: " << data[i].minutesNAS << " minutes\n"; 
+            }        
+        }
+    else if (metric == "7") {
+        for (int i=data.size()-1; i>data.size()-1-k; i--) {
+            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Security minutes: " << data[i].minutesSecurity << " minutes\n"; 
+            }        
         }
     }
 
-}
+
+
