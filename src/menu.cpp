@@ -74,15 +74,15 @@ void runMenu(vector<Row> data) {
     }
     else if (metric == "4") {
         cout << "Selected: Weather\n---------------------------------------------\n";
-        comp = compareByWeather;
+        comp = compareByWeatherMinutes;
     }
     else if (metric == "5") {
         cout << "Selected: Carrier\n---------------------------------------------\n";
-        comp = compareByCarrier;
+        comp = compareByCarrierMinutes;
     }
     else if (metric == "6") {
         cout << "Selected: NAS\n---------------------------------------------\n";
-        comp = compareByNAS;
+        comp = compareByNASMinutes;
     }
     else if (metric == "7") {
         cout << "Selected: Security Minutes\n---------------------------------------------\n";
@@ -95,7 +95,7 @@ void runMenu(vector<Row> data) {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> algo;
     }
-    //TODO: Add the quick sort option and change last option to "Compare all"
+
     if (algo == "1") {
         cout << "Selected: Merge sort\n---------------------------------------------\n";
     }
@@ -106,7 +106,7 @@ void runMenu(vector<Row> data) {
         cout << "Selected: Quick sort\n---------------------------------------------\n";
     }
     else if (algo == "4") {
-        cout << "Selected: Compare all\n---------------------------------------------\n" 
+        cout << "Selected: Compare all\n---------------------------------------------\n" ;
     }
     cout << "Enter Top-N to display.\n";
     cout << "> " << flush;
@@ -117,43 +117,46 @@ void runMenu(vector<Row> data) {
     }
     int k = stoi(n);
     cout << "---------------------------------------------\n";
+    chrono::duration<double, milli> duration;
+    chrono::duration<double, milli> duration1;
+    chrono::duration<double, milli> duration2;
     if (algo == "1"){
         auto start = chrono::high_resolution_clock::now();
-        merge_sort(data, data.size()-1, comp);
+        mergeSort(data, comp);
         auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, milli> duration = end - start;
+        duration = end - start;
     }
     else if (algo == "2"){
         auto start = chrono::high_resolution_clock::now();
         // heap sort
         auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, milli> duration = end - start;
+        duration = end - start;
     }
     else if (algo == "3"){
         auto start = chrono::high_resolution_clock::now();
         quickSort(data, comp);
         auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, milli> duration = end - start;
+        duration = end - start;
     }
     else {
         vector<Row> data1 = data;
         vector<Row> data2 = data;
         auto start = chrono::high_resolution_clock::now();
-        merge_sort(data, data.size()-1, comp);
+        mergeSort(data, comp);
         auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, milli> duration = end - start;
+        duration = end - start;
         start = chrono::high_resolution_clock::now();
         // heap sort data 1
         end = chrono::high_resolution_clock::now();
-        chrono::duration1<double, milli> duration = end - start;
+        duration1 = end - start;
         start = chrono::high_resolution_clock::now();
         quickSort(data2, comp);
         end = chrono::high_resolution_clock::now();
-        chrono::duration2<double, milli> duration = end - start;
+        duration2 = end - start;
         
     }
     // Output
-    if (algo == 4){
+    if (algo == "4"){
         cout << "Times to execute:\n";
         cout << "Merge sort: " << duration.count() << "ms\n";
         cout << "Heap sort: " << duration1.count() << "ms\n";

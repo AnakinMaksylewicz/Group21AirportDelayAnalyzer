@@ -47,7 +47,7 @@ void mergeSortHelper(std::vector<Row>& data, int left, int right, compareFunctio
     }
 }
 
-void merge_sort(std::vector<Row>& data, int left, int right) {
+void mergeSort(std::vector<Row>& data, compareFunction comp) {
     if(!data.empty())
-        mergeSortHelper(data, left, right, compareFunction());
+        mergeSortHelper(data, 0, static_cast<int>(data.size()) - 1, comp);
 }
