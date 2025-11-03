@@ -50,10 +50,10 @@ void runMenu(vector<Row> data) {
     else if (mode == "2") {
         cout << "Selected: Airport-Year\n---------------------------------------------\n";
     }
-    cout << "Choose metric:\n[1] Total minutes delayed\n[2] Delay rate\n[3] Average minutes per delayed flight\n[4] Weather / Carrier / NAS / Security minutes\n";
+    cout << "Choose metric:\n[1] Total minutes delayed\n[2] Delay rate\n[3] Average minutes per delayed flight\n[4] Weather\n[5] Carrier\n[6] NAS\n[7] Security minutes\n";
     cout << "> " << flush;
     cin >> metric;
-    while (metric != "1" && metric != "2" && metric != "3" && metric != "4") {
+    while (metric != "1" && metric != "2" && metric != "3" && metric != "4" && metric != "5" && metric != "6" && metric != "7") {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> metric;
     }
@@ -167,46 +167,54 @@ void runMenu(vector<Row> data) {
         cout << "Time to execute: " << duration.count() << "ms\n";
         cout << "---------------------------------------------\n";
     }
+    int j = 1;
     if (metric == "1") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Total minutes delayed: " << data[i].minutesTotal << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Total minutes delayed: " << data[i].minutesTotal << " minutes\n";
+            j++;
             }
         }
     else if (metric == "2") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Delay rate: " << 100.0 * (double)data[i].flightsDelayed / (double)data[i].flightsTotal << "%\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Delay rate: " << 100.0 * (double)data[i].flightsDelayed / (double)data[i].flightsTotal << "%\n";
+            j++;
             }
         }
     else if (metric == "3") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Minutes per delay: " << (double)data[i].minutesTotal / (double)data[i].flightsDelayed << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Minutes per delay: " << (double)data[i].minutesTotal / (double)data[i].flightsDelayed << " minutes\n";
+            j++;
             }
         }
     else if (metric == "4") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Weather minutes: " << data[i].minutesWeather << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Weather minutes: " << data[i].minutesWeather << " minutes\n";
+            j++;
             }
         }
     else if (metric == "5") {
          for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Carrier minutes: " << data[i].minutesCarrier << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Carrier minutes: " << data[i].minutesCarrier << " minutes\n";
+            j++;
             }       
         }
     else if (metric == "6") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", NAS minutes: " << data[i].minutesNAS << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", NAS minutes: " << data[i].minutesNAS << " minutes\n";
+            j++;
             }        
         }
     else if (metric == "7") {
         for (int i=data.size()-1; i>data.size()-1-k; i--) {
-            cout << "[" << i << "] " << data[i].airportCode << " " << data[i].airportName;
-            cout << ", Security minutes: " << data[i].minutesSecurity << " minutes\n"; 
+            cout << "[" << j << "] " << data[i].airportCode << " " << data[i].airportName;
+            cout << ", Security minutes: " << data[i].minutesSecurity << " minutes\n";
+            j++;
             }        
         }
     }
