@@ -35,7 +35,7 @@ void runMenu(vector<Row> data) {
     string algo;
     string n;
     bool groupByMonth = false, groupByYear = false;
-    //map for selecting months and then converting them to numbers (will be used in the aggregate function)
+    //map for selecting months and then converting them to numbers (will be used to filter)
     unordered_map<string, int> monthMap = {
         {"january", 1}, {"february", 2}, {"march", 3}, {"april", 4},
         {"may", 5}, {"june", 6}, {"july", 7}, {"august", 8},
@@ -77,11 +77,21 @@ void runMenu(vector<Row> data) {
     else if (mode == "2") {
         cout << "Selected: Airport-Year\n---------------------------------------------\n";
         groupByYear = true;
-        cout << "Enter the year to aggregate across all months (2003 - 2016):\n> " << flush;
-        cin >> filterYear;
-        while (filterYear < 2003 || filterYear > 2016) {
+        cout << "Enter year (2003 - 2016):\n> " << flush;
+
+        while (true) {
+            if (!(cin >> filterYear)) {
+                //handle non-integer inputs
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a numeric year (2003 - 2016):\n> " << flush;
+                continue;
+            }
+
+            if (filterYear >= 2003 && filterYear <= 2016)
+                break;
+
             cout << "Invalid year. Enter a year between 2003 and 2016 (inclusive):\n> " << flush;
-            cin >> filterYear;
         }
     }
     cout << "Choose metric:\n[1] Total minutes delayed\n[2] Delay rate\n[3] Average minutes per delayed flight\n[4] Weather\n[5] Carrier\n[6] NAS\n[7] Security minutes\n";
@@ -216,13 +226,13 @@ void runMenu(vector<Row> data) {
                           (metric == "4" ? "Weather Minutes" :
                           (metric == "5" ? "Carrier Minutes" :
                           (metric == "6" ? "NAS Minutes" : "Security Minutes"))))));
+    //Month name array for display,
+    string monthName[12] = {"January","February","March","April","May","June","July","August","September","October","November","December"};
     if (groupByMonth)
-        cout << "Top " << k << " by " << metricName << " (Month = " << filterMonth << " across ALL years)\n";
+        cout << "Top " << k << " by " << metricName << " (Month = " << monthName[filterMonth - 1] << " across ALL years)\n";
     else
         cout << "Top " << k << " by " << metricName << " (Year = " << filterYear << " across ALL months)\n";
     int j = 1;
-    //Month name array for display,
-    string monthName[12] = {"January","February","March","April","May","June","July","August","September","October","November","December"};
     for (int i = static_cast<int>(filtered.size()) - 1; i >= static_cast<int>(filtered.size()) - k && i >= 0; i--) {
         const Row& row = filtered[i];
         cout << "[" << j << "] " << row.airportCode << " " << row.airportName;
