@@ -4,12 +4,15 @@
 #include "data_generator.h"
 #include <iostream>
 #include <random>
+#include <unordered_map>
+#include <string>
+#include <algorithm>
 using namespace std;
-//Function for generating the 100,000 rows we need as per instructions
+//Function for generating the 100,000 data points we need as per instructions
 
 //The way it works is that we take the vector full of rows that we loaded
 //from the csv, and slightly modify each row's attributes randomly to achieve
-//100,000 rows
+//100,000 data points
 vector<Row> generateSyntheticData(const vector<Row> &originalData, unsigned int targetSize) {
     vector<Row> extended = originalData;
     if (originalData.empty()) {
@@ -19,20 +22,32 @@ vector<Row> generateSyntheticData(const vector<Row> &originalData, unsigned int 
 
     //randomness generator setup stuff
     random_device rd;
-    mt19937 gen(rd());
-    //random difference between -15% and +15% for the attributes
+    mt19937 gen(42);
+    //random difference between -50% and +50% for the attributes
     //we apply this to
-    uniform_real_distribution<> variation(-0.15, 0.15);
-    //random int difference between -11 and 11 to shift months
-    uniform_int_distribution monthShift(-11, 11);
-    //random 5 year shift
-    uniform_int_distribution yearShift(-5, 5);
+    uniform_real_distribution<> variation(-0.5, 0.5);
+    //random int difference  to shift months
+    uniform_int_distribution monthShift(-5, 5);
+    //random year shift
+    uniform_int_distribution yearShift(-8, 8);
+    //random generator for indices for generating rows
+    uniform_int_distribution randomIndex(0, static_cast<int>(originalData.size() - 1));
+
+    //Track airport-month-year combinations to set max limit on dupes to avoid too many
+    //repetetive entries
+    unordered_map<string, int> dupeKeys;
+    const int MAX_DUPES_PER_KEY = 2;
+
+    //record existing combos from original data
+    for (const auto& row : originalData) {
+        string key = row.airportCode + "_" + to_string(row.month) + "_" + to_string(row.year);
+        dupeKeys[key]++;
+    }
 
     //loop until extended size is 100,000
     while (extended.size() < targetSize) {
-        //take a base row to modify its attributes, use modulo so that
-        //once we hit the end of originalData, it wraps around
-        const Row &base = originalData[extended.size() % originalData.size()];
+        //take a random base row to modify its attributes
+        const Row &base = originalData[randomIndex(gen)];
 
         Row copy = base; //initialize copy object so that we can append to extended
 
@@ -43,8 +58,23 @@ vector<Row> generateSyntheticData(const vector<Row> &originalData, unsigned int 
             copy.month += 12;
         if (copy.month > 12)
             copy.month -= 12;
-        copy.year = base.year + yearShift(gen);
 
+        copy.year = base.year + yearShift(gen);
+        //Make sure years are between 1999 and 2020 inclusive
+        if (copy.year < 1999)
+            copy.year = 1999 + (rand() % 3);
+        if (copy.year > 2020)
+            copy.year = 2018 + (rand() % 3);
+
+        //EXTREMELY IMPORTANT: check airport, month, year, so that data doesn't repeat excessively
+        string key = copy.airportCode + "_" + to_string(copy.month) + "_" + to_string(copy.year);
+        if (dupeKeys[key] >= MAX_DUPES_PER_KEY) {
+            continue; //Skip over rows that have reached the dupe limit
+        }
+        //Increase dupeKeys count by 1 to check against maximum dupe key
+        dupeKeys[key]++;
+        cout << "key inserted. extended size: " << extended.size() << endl;
+        cout << "dupe key size: " << dupeKeys.size() << endl;
         //Lambda function for random variation for delay attributes
         auto vary = [&](int value) -> int {
             return static_cast<int>(value * (1 + variation(gen)));

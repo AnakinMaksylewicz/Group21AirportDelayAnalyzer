@@ -76,21 +76,21 @@ int runMenu(vector<Row> data) {
     else if (mode == "2") {
         cout << "Selected: Airport-Year\n---------------------------------------------\n";
         groupByYear = true;
-        cout << "Enter year (2003 - 2016):\n> " << flush;
+        cout << "Enter year (1999 - 2020):\n> " << flush;
 
         while (true) {
             if (!(cin >> filterYear)) {
                 //handle non-integer inputs
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Invalid input. Please enter a numeric year (2003 - 2016):\n> " << flush;
+                cout << "Invalid input. Please enter a numeric year (1999 - 2020):\n> " << flush;
                 continue;
             }
 
-            if (filterYear >= 2003 && filterYear <= 2016)
+            if (filterYear >= 1999 && filterYear <= 2020)
                 break;
 
-            cout << "Invalid year. Enter a year between 2003 and 2016 (inclusive):\n> " << flush;
+            cout << "Invalid year. Enter a year between 1999 and 2020 (inclusive):\n> " << flush;
         }
     }
     else if (mode == "3") {

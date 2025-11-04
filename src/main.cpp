@@ -13,8 +13,8 @@ int main(){
     std::string fileName = "../data/airlines.csv";
     //Load data in this line
     std::vector<Row> data = loadCSV(fileName);
-    //extend data to 100,000 rows as per assignment instructions
-    data = generateSyntheticData(data, 100000);
+    //extend data to 100,000 datapoints as per assignment instructions (100,000 data points / 7 metrics = ~15,000 necessary rows)
+    data = generateSyntheticData(data, 15000);
     std::cout << "---------------------------------------------\nFLIGHT DELAY ANALYZER\n---------------------------------------------\n";
     while (true) {
         //run menu in this line, passing in the data
