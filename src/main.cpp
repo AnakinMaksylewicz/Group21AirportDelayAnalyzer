@@ -13,5 +13,6 @@ int main(){
     //Load data in this line
     std::vector<Row> data = loadCSV(fileName);
     //run menu in this line, passing in the data
+    runMenu(data);
     return 0;
 }

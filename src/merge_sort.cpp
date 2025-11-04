@@ -25,7 +25,7 @@ void merge(std::vector<Row>& data, int left, int mid, int right, compareFunction
     int k = left;
     //Compare and insert into data in order
     while (i < n1 && j < n2) {
-        if (comp(L[i], R[j]))
+        if (comp(L[i], R[j])) //If left < right, we insert and increment data and left array by 1
             data[k++] = L[i++];
         else
             data[k++] = R[j++];
