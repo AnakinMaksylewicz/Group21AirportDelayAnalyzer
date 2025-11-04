@@ -10,7 +10,7 @@ using namespace std;
 //The way it works is that we take the vector full of rows that we loaded
 //from the csv, and slightly modify each row's attributes randomly to achieve
 //100,000 rows
-vector<Row> generateSyntheticData(const vector<Row>& originalData, unsigned int targetSize) {
+vector<Row> generateSyntheticData(const vector<Row> &originalData, unsigned int targetSize) {
     vector<Row> extended = originalData;
     if (originalData.empty()) {
         cerr << "Empty original data" << endl;
@@ -32,7 +32,7 @@ vector<Row> generateSyntheticData(const vector<Row>& originalData, unsigned int 
     while (extended.size() < targetSize) {
         //take a base row to modify its attributes, use modulo so that
         //once we hit the end of originalData, it wraps around
-        const Row& base = originalData[extended.size() % originalData.size()];
+        const Row &base = originalData[extended.size() % originalData.size()];
 
         Row copy = base; //initialize copy object so that we can append to extended
 
@@ -67,6 +67,6 @@ vector<Row> generateSyntheticData(const vector<Row>& originalData, unsigned int 
         extended.push_back(copy);
     }
     cout << "Extended dataset from " << originalData.size() <<
-        " to " << extended.size() << " rows" << endl;
+            " to " << extended.size() << " rows" << endl;
     return extended;
 }
