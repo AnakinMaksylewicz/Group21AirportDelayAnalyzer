@@ -29,7 +29,7 @@ bool isInteger(const std::string& s) {
 }
 
 
-void runMenu(vector<Row> data) {
+int runMenu(vector<Row> data) {
     string mode;
     string metric;
     string algo;
@@ -48,11 +48,10 @@ void runMenu(vector<Row> data) {
     string monthInput;
     int filterYear = 0;
     int filterMonth = 0;
-    cout << "---------------------------------------------\nFLIGHT DELAY ANALYZER\n---------------------------------------------\n";
-    cout << "Choose mode:\n[1] Airport-Month\n[2] Airport-Year\n";
+    cout << "Choose mode:\n[1] Airport-Month\n[2] Airport-Year\n[3] Exit\n";
     cout << "> " << flush;
     cin >> mode;
-    while (mode != "1" && mode != "2") {
+    while (mode != "1" && mode != "2" && mode != "3") {
         cout << "Please enter a valid option.\n> " << flush;
         cin >> mode;
     }
@@ -93,6 +92,9 @@ void runMenu(vector<Row> data) {
 
             cout << "Invalid year. Enter a year between 2003 and 2016 (inclusive):\n> " << flush;
         }
+    }
+    else if (mode == "3") {
+        return 1;
     }
     cout << "Choose metric:\n[1] Total minutes delayed\n[2] Delay rate\n[3] Average minutes per delayed flight\n[4] Weather\n[5] Carrier\n[6] NAS\n[7] Security minutes\n";
     cout << "> " << flush;
@@ -256,7 +258,7 @@ void runMenu(vector<Row> data) {
     }
 
     cout << "---------------------------------------------\n";
-
+    return 0;
 
 }
 
