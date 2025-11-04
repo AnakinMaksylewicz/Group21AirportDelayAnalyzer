@@ -13,9 +13,11 @@ int main(){
     std::string fileName = "../data/airlines.csv";
     //Load data in this line
     std::vector<Row> data = loadCSV(fileName);
+    //extend data to 100,000 rows as per assignment instructions
+    data = generateSyntheticData(data, 100000);
     std::cout << "---------------------------------------------\nFLIGHT DELAY ANALYZER\n---------------------------------------------\n";
-    //run menu in this line, passing in the data
     while (true) {
+        //run menu in this line, passing in the data
         if (runMenu(data) == 1) {
             return 0;
         }

@@ -4,7 +4,7 @@
 
 #include "merge_sort.h"
 
-void merge(std::vector<Row>& data, int left, int mid, int right, compareFunction comp) {
+void merge(std::vector<Row> &data, int left, int mid, int right, compareFunction comp) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
@@ -38,7 +38,7 @@ void merge(std::vector<Row>& data, int left, int mid, int right, compareFunction
         data[k++] = R[j++];
 }
 
-void mergeSortHelper(std::vector<Row>& data, int left, int right, compareFunction comp) {
+void mergeSortHelper(std::vector<Row> &data, int left, int right, compareFunction comp) {
     if (left < right) {
         int mid = left + (right - left) / 2;
         mergeSortHelper(data, left, mid, comp);
@@ -47,7 +47,7 @@ void mergeSortHelper(std::vector<Row>& data, int left, int right, compareFunctio
     }
 }
 
-void mergeSort(std::vector<Row>& data, compareFunction comp) {
-    if(!data.empty())
+void mergeSort(std::vector<Row> &data, compareFunction comp) {
+    if (!data.empty())
         mergeSortHelper(data, 0, static_cast<int>(data.size()) - 1, comp);
 }

@@ -8,7 +8,7 @@
  * in the data vector that regular quick sort was taking so long that it didn't
  * output anything
  */
-void quickSortHelper(std::vector<Row>& data, int low, int high, compareFunction comp) {
+void quickSortHelper(std::vector<Row> &data, int low, int high, compareFunction comp) {
     //If subarray has 0 or 1 elements, array is sorted
     if (low >= high) return;
 
@@ -20,20 +20,20 @@ void quickSortHelper(std::vector<Row>& data, int low, int high, compareFunction 
      * than the pivot */
 
     int lt = low; //Boundary for < pivot region
-    int i  = low + 1; //Current element
+    int i = low + 1; //Current element
     int gt = high; //Boundary for > pivot region
 
     while (i <= gt) {
-        if (comp(data[i], pivot)) { //If element < pivot, move it to the less than pivot region
+        if (comp(data[i], pivot)) {
+            //If element < pivot, move it to the less than pivot region
             std::swap(data[lt], data[i]);
             lt++;
             i++;
-        }
-        else if (comp(pivot, data[i])) { //If the element is > pivot, move it to the greater than pivot region
+        } else if (comp(pivot, data[i])) {
+            //If the element is > pivot, move it to the greater than pivot region
             std::swap(data[i], data[gt]);
             gt--;
-        }
-        else {
+        } else {
             // equal to pivot
             i++;
         }
@@ -44,7 +44,7 @@ void quickSortHelper(std::vector<Row>& data, int low, int high, compareFunction 
     quickSortHelper(data, gt + 1, high, comp);
 }
 
-void quickSort(std::vector<Row>& data, compareFunction comp) {
+void quickSort(std::vector<Row> &data, compareFunction comp) {
     if (!data.empty())
         quickSortHelper(data, 0, static_cast<int>(data.size()) - 1, comp);
 }
