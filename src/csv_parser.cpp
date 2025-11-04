@@ -7,7 +7,7 @@
 
 using namespace std;
 
-std::vector<Row> loadCSV(const std::string& fileName) {
+std::vector<Row> loadCSV(const std::string &fileName) {
     vector<Row> data;
     ifstream file(fileName);
 
@@ -25,8 +25,8 @@ std::vector<Row> loadCSV(const std::string& fileName) {
         //Had to code it like this instead of using string stream b/c
         //raw csv file has commas for things like airport name and carriers
         bool insideQuotes = false;
-        for (char c : line) {
-            //Flips insideQuotes so that airport name/carriers are properly added w/ quotes
+        for (char c: line) {
+            //Flips insideQuotes so that airport name/carriers are properly added w/ commas and quote characters are ignored
             if (c == '"') {
                 insideQuotes = !insideQuotes;
             }
@@ -35,8 +35,7 @@ std::vector<Row> loadCSV(const std::string& fileName) {
             else if (c == ',' && !insideQuotes) {
                 attributes.push_back(field);
                 field.clear();
-            }
-            else {
+            } else {
                 field += c;
             }
         }

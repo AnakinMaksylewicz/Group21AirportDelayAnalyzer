@@ -8,5 +8,5 @@
 #include "csv_parser.h"
 
 bool isInteger(const std::string& str);
-void runMenu(std::vector<Row> data);
+int runMenu(std::vector<Row> data);
 #endif //MENU_H

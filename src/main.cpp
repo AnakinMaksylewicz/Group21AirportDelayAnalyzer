@@ -6,12 +6,20 @@
 #include "heap_sort.h"
 #include "menu.h"
 #include "merge_sort.h"
+#include <iostream>
 
 //main should be only a few lines, we're going to do the menu in a runMenu(data) function
 int main(){
     std::string fileName = "../data/airlines.csv";
     //Load data in this line
     std::vector<Row> data = loadCSV(fileName);
-    //run menu in this line, passing in the data
-    return 0;
+    //extend data to 100,000 rows as per assignment instructions
+    data = generateSyntheticData(data, 100000);
+    std::cout << "---------------------------------------------\nFLIGHT DELAY ANALYZER\n---------------------------------------------\n";
+    while (true) {
+        //run menu in this line, passing in the data
+        if (runMenu(data) == 1) {
+            return 0;
+        }
+    }
 }
