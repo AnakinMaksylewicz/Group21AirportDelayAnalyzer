@@ -23,20 +23,41 @@ public:
     bool isHovered(sf::RenderWindow& window);
     bool isClicked(sf::RenderWindow& window, const sf::Event& event);
     void update(sf::RenderWindow& window);
+    string getLabel() {return label.getString();}
 };
 
-class Menu {
-    sf::Font font;
+//parent class for general screen, different screens requiring different buttons will inherit from this
+class Screen {
+protected:
+    const sf::Font& font;
     vector<Button> buttons;
     sf::Text titleText;
     sf::Color backgroundColor;
 public:
-    Menu();
-    void draw(sf::RenderWindow &window);
+    Screen(const sf::Font& f, const string& title, sf::Color background = sf::Color(54, 186, 216));
+    virtual void draw(sf::RenderWindow &window);
     //initialize resources
-    bool init();
+    virtual bool init();
     //returns ints to register selected button
-    int run(sf::RenderWindow &window);
+    virtual int run(sf::RenderWindow &window);
 
 };
+
+//initial year month menu
+class Menu : public Screen {
+    public:
+    Menu(const sf::Font& f) : Screen(f, "Flight Delay Analyzer") {}
+    bool init() override;
+};
+
+//year/month selection
+class TimeSelection : public Screen {
+    vector<string> options;
+    string selectedOption;
+public:
+    TimeSelection(const sf::Font& f, const vector<string>& options, const string& title);
+    bool init() override;
+    string Selection(sf::RenderWindow& window);
+};
+
 #endif //SFML_MENU_H

@@ -17,7 +17,7 @@ int main(){
     //Load data in this line
     std::vector<Row> data = loadCSV(fileName);
     //extend data to 100,000 datapoints as per assignment instructions (100,000 data points / 7 metrics = ~15,000 necessary rows)
-    data = generateSyntheticData(data, 15000);
+    //data = generateSyntheticData(data, 15000);
     std::cout << "---------------------------------------------\nFLIGHT DELAY ANALYZER\n---------------------------------------------\n";
 
     std::cout << "Choose a menu option:\n[1] Console\n[2] SFML\n> " << std::flush;
@@ -36,33 +36,39 @@ int main(){
     }
     //sfml menu
     sf::RenderWindow window(sf::VideoMode(800, 600), "Main Menu");
-    Menu menu;
-    if (!menu.init())
-        return -1;
+
+    //load font in main so it can be used by all different screens without issue
+    sf::Font font;
+    if (!font.loadFromFile("assets/HATTEN.TTF")) {
+        std::cerr << "Error loading font." << std::endl;
+    }
+
+    //initial year month menu
+    Menu mainMenu(font);
+    mainMenu.init();
 
     while (window.isOpen()) {
-        int result = menu.run(window);
-        if (result == 0)
-            window.close();
+        int result = mainMenu.run(window);
+        //exit clicked
+        if (result == -1 || result == 2) {window.close();}
+        //month selection
+        else if (result == 0) {
+            vector<string> months = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
+            TimeSelection month(font, months, "Select a Month");
+            month.init();
+            string selectedMonth = month.Selection(window);
+            }
+        //year selection
         else if (result == 1) {
-            sf::RenderWindow sub(sf::VideoMode(600, 400), "Window 1");
-            while (sub.isOpen()) {
-                sf::Event e;
-                while (sub.pollEvent(e))
-                    if (e.type == sf::Event::Closed) sub.close();
-                sub.clear(sf::Color::Blue);
-                sub.display();
+            vector<string> years;
+            for (int i = 1999; i <= 2020; ++i) {
+                years.push_back(to_string(i));
             }
-        } else if (result == 2) {
-            sf::RenderWindow sub(sf::VideoMode(600, 400), "Window 2");
-            while (sub.isOpen()) {
-                sf::Event e;
-                while (sub.pollEvent(e))
-                    if (e.type == sf::Event::Closed) sub.close();
-                sub.clear(sf::Color::Green);
-                sub.display();
+            TimeSelection year(font, years, "Select a Year");
+            year.init();
+            string selectedYear = year.Selection(window);
             }
-        }
     }
     return 0;
 }
