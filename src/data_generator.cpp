@@ -34,7 +34,7 @@ vector<Row> generateSyntheticData(const vector<Row> &originalData, unsigned int 
     uniform_int_distribution randomIndex(0, static_cast<int>(originalData.size() - 1));
 
     //Track airport-month-year combinations to set max limit on dupes to avoid too many
-    //repetetive entries
+    //repetitive entries
     unordered_map<string, int> dupeKeys;
     const int MAX_DUPES_PER_KEY = 2;
 

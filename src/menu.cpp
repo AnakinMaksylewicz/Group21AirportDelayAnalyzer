@@ -174,7 +174,7 @@ int runMenu(vector<Row> data) {
     }
     else if (algo == "2"){
         auto start = chrono::high_resolution_clock::now();
-        // heap sort
+        heapSort(data, comp);
         auto end = chrono::high_resolution_clock::now();
         duration = end - start;
     }
@@ -192,7 +192,7 @@ int runMenu(vector<Row> data) {
         auto end = chrono::high_resolution_clock::now();
         duration = end - start;
         start = chrono::high_resolution_clock::now();
-        // heap sort data 1
+        heapSort(data1, comp);
         end = chrono::high_resolution_clock::now();
         duration1 = end - start;
         start = chrono::high_resolution_clock::now();

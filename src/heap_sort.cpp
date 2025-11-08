@@ -1,6 +1,5 @@
 //
 // File created by anakin on 10/15/2025.
-// Implemented by dennis 11/3/2025
 //
 
 #include "heap_sort.h"
