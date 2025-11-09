@@ -50,14 +50,33 @@ class Menu : public Screen {
     bool init() override;
 };
 
-//year/month selection
-class TimeSelection : public Screen {
+//rest of the selection menus
+class MenuSelection : public Screen {
     vector<string> options;
     string selectedOption;
 public:
-    TimeSelection(const sf::Font& f, const vector<string>& options, const string& title);
+    MenuSelection(const sf::Font& f, const vector<string>& options, const string& title);
     bool init() override;
     string Selection(sf::RenderWindow& window);
 };
 
+//data display screen
+class DisplayData {
+    const sf::Font& font;
+    sf::Text titleText;
+    sf::Text timeText;
+    sf::Color backgroundColor;
+    sf::Color headerColor;
+    sf::Color regularColor;
+    sf::Color highlightColor;
+
+    vector<sf::RectangleShape> rowBoxes;
+    vector<sf::Text> rowTexts;
+public:
+    DisplayData(const sf::Font& f, const string& title, const string& timeInfo, const vector<Row>& data,
+    const string& metric, bool groupByMonth, int n = 20);
+
+    void draw(sf::RenderWindow& window);
+    bool run(sf::RenderWindow& window);
+};
 #endif //SFML_MENU_H
