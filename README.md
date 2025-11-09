@@ -3,3 +3,4 @@ To run the project
 1. Clone repo
 2. Build cmake file (all necessary sfml stuff is done locally to be portable)
 3. run main
+note - when running the SFML menu, rerun the whole main to have accurate data display
